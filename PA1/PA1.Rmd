@@ -1,0 +1,40 @@
+---
+title: "R Markdown and Leaflet"
+author: "Jon Ting"
+date: "21/08/2020"
+output: html_document
+---
+
+## Introduction
+This project involves the creation of a map of population in Australia in 2017 with Leaflet.
+
+The data below were obtained from [50 Largest Cities in Australia](https://blog.id.com.au/2018/population/population-trends/the-50-largest-cities-and-towns-in-australia-by-population-2018-update/) and [Australia Cities Coordinates](https://www.latlong.net/category/cities-14-15.html).
+
+## Document Setup and Load Packages
+Leaflet was first imported:
+```{r Setup and load library, cache=T, results=F}
+knitr::opts_chunk$set(warning=FALSE, echo=TRUE)
+library(leaflet)
+```
+
+## Store Required Data in DataFrame
+A dataframe was created as a placeholder for the data as shown below:
+```{r Markers, cache=T}
+aus <- data.frame(name=c("Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Gold Coast", "Newcastle", "Canberra", "Sunshine Coast", "Wollongong"),
+                  pop=c(4741874, 4677157, 2326656, 2004696, 1315346, 663321, 481183, 447457, 325399, 299203), 
+                  lat=c(-33.865143, -37.840935, -27.470125, -31.953512, -34.921230, -28.016666, 	-32.916668, -35.282001, -26.650000, -34.425072), 
+                  lng=c(151.209900, 144.946457, 153.021072, 115.857048, 138.599503, 153.399994, 151.750000, 149.128998, 153.066666, 150.893143),
+                  col=c("red", "red", "green", "green", "green", "green", "blue", "blue", "blue", "blue"))
+```
+
+## Create Interactive Map
+The map was created as below. The size of each circle is proportional to the population of the city, while their colors represent the category of the population size as defined in the legend.
+```{r Map, cache=T}
+my_map <- aus %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircles(weight=1, radius=sqrt(aus$pop)*30, col=aus$col) %>% 
+  addLegend(labels=c(">3,000,000", "50,000 - 3,000,000", "<50,000"), colors=c("red", "green", "blue"))
+my_map
+```
+

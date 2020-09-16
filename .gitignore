@@ -1,4 +1,9 @@
-pitch-cache/
-pitch-figure/
-rsconnect/
-
+PA1/cache/
+PA2/cache/
+PA1/rsconnect/
+PA2/rsconnect/
+PA3/rsconnect/
+PA3/pitch-cache/
+PA3/pitch-figure/
+PA3/myApp/.RData
+PA3/myApp/.Rhistory

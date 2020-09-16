@@ -1,0 +1,10 @@
+name: myapp
+title:
+username:
+account: jon-ting
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2697981
+bundleId: 3548001
+url: https://jon-ting.shinyapps.io/myapp/
+when: 1598195986.2108

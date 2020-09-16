@@ -1,0 +1,43 @@
+---
+title: "R Markdown Presentation & Plotly"
+author: "Jon Ting"
+date: "22/08/2020"
+output: slidy_presentation
+---
+
+## Introduction
+The interactive scatter plot created here attempts to show the relationships between several variables chosen from the R built-in Seatbelts dataset.[1] It is a time series giving the monthly totals of car drivers in Great Britain killed or seriously injured Jan 1969 to Dec 1984. Compulsory wearing of seat belts was introduced on 31 Jan 1983.
+
+The variables involved are defined below:
+
+- front: front-seat passengers killed or seriously injured.
+- rear: rear-seat passengers killed or seriously injured.
+- kms: distance driven.
+- PetrolPrice: petrol price.
+- law: was the law in effect that month (0/1)?
+
+## Document Setup
+```{r Setup and load library, cache=T, results=F}
+knitr::opts_chunk$set(warning=FALSE, echo=TRUE)
+library(plotly)
+```
+
+## Create Graph
+A 3-dimensional scatter plot is created with the variables being distance driven and the front- and rear-seat passengers killed or seriously injured in each month during the period aforementioned. The size of each point is proportional to the petrol price in the month and the color of each point is coded to represent whether the law was in effect that month.
+```{r Create graph, cache=T}
+data("Seatbelts")
+accidents <- data.frame(Seatbelts)
+accidents$law <- factor(accidents$law)
+graph <- plot_ly(accidents, x=~kms, y=~front, z=~rear, type="scatter3d", 
+                 color=~law, size=~PetrolPrice, mode="markers")
+graph <- graph %>% 
+  layout(title="Number of Harmed Passengers vs Distance Driven")
+```
+
+## Show Output
+```{r Show graph, fig.height=8, fig.width=10, cache=T, warning=F}
+graph
+```
+
+## References
+[1] Harvey, A. C. and Durbin, J. (1986). The effects of seat belt legislation on British road casualties: A case study in structural time series modeling. Journal of the Royal Statistical Society series A, 149, 187–227. doi: 10.2307/2981553.
